@@ -9,7 +9,7 @@ import java.util.List;
 public class Flight {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(name = "date_time", nullable = false)
     private Timestamp date_time;
@@ -26,7 +26,7 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(Integer id, Timestamp date_time, Integer price, String flight_number, List<Airport> airports) {
+    public Flight(Long id, Timestamp date_time, Integer price, String flight_number, List<Airport> airports) {
         this.id = id;
         this.date_time = date_time;
         this.price = price;
@@ -34,11 +34,11 @@ public class Flight {
         this.airports = airports;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,5 +72,16 @@ public class Flight {
 
     public void setAirports(List<Airport> airports) {
         this.airports = airports;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id=" + id +
+                ", date_time=" + date_time +
+                ", price=" + price +
+                ", flight_number='" + flight_number + '\'' +
+                ", airports=" + airports +
+                '}';
     }
 }

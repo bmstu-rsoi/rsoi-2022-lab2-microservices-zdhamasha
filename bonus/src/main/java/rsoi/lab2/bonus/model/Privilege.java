@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Privilege {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(name = "username", nullable = false, length = 80)
     private String username;
@@ -19,7 +19,7 @@ public class Privilege {
     public Privilege() {
     }
 
-    public Privilege(Integer id, String username, Status status, int balance) {
+    public Privilege(Long id, String username, Status status, int balance) {
         this.id = id;
         this.username = username;
         this.status = status;
@@ -29,11 +29,11 @@ public class Privilege {
     @Column(name = "balance")
     private int balance;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,7 +48,6 @@ public class Privilege {
     public Status getStatus() {
         return status;
     }
-
 
     public void setStatus(Status status) {
         this.status = status;

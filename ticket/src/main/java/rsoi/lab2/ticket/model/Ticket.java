@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(name = "flight_number", nullable = false, length = 20)
     private String flight_number;
@@ -31,11 +31,11 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -91,7 +91,7 @@ public class Ticket {
                 '}';
     }
 
-    public Ticket(Integer id, String flight_number, UUID ticket_uid, String username, int price, Status status) {
+    public Ticket(Long id, String flight_number, UUID ticket_uid, String username, int price, Status status) {
         this.id = id;
         this.flight_number = flight_number;
         this.ticket_uid = ticket_uid;

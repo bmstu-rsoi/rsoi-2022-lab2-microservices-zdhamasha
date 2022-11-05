@@ -11,7 +11,7 @@ import java.util.UUID;
 public class PrivilegeHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(name = "ticket_uid",unique = true,nullable = false)
     @GeneratedValue(generator = "system-uuid")
