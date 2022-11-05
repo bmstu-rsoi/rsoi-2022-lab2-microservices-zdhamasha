@@ -1,6 +1,7 @@
 package rsoi.lab2.ticket.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rsoi.lab2.ticket.repoistory.TicketRepoistory;
@@ -10,4 +11,5 @@ import rsoi.lab2.ticket.repoistory.TicketRepoistory;
 public class TicketController {
     @Autowired
     private TicketRepoistory ticketRepoistory;
+
 }
