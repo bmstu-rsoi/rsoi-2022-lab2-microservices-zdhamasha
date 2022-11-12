@@ -3,27 +3,23 @@ package rsoi.lab2.flight.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "airport")
+@Table(name = "AIRPORT")
 public class Airport {
+
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
-    @Column(name = "country", nullable = false)
+
+    @Column(name = "COUNTRY", nullable = false)
     private String country;
-    @Column(name = "city", nullable = false)
+
+    @Column(name = "CITY", nullable = false)
     private String city;
 
     public Airport() {
-    }
-
-    public Airport(Integer id, String name, String country, String city) {
-        this.id = id;
-        this.name = name;
-        this.country = country;
-        this.city = city;
     }
 
     public Integer getId() {
