@@ -1,9 +1,10 @@
 package rsoi.lab2.flight.responses;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class FlightResponse {
+public class FlightResponse implements Serializable {
 
     private String flightNumber;
 

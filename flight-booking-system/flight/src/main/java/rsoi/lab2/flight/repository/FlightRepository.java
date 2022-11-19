@@ -11,4 +11,6 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
 
     @Override
     Page<Flight> findAll(Pageable pageable);
+
+    boolean existsByFlightNumber(String flightNumber);
 }

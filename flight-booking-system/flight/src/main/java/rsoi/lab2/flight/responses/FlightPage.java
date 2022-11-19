@@ -1,9 +1,10 @@
 package rsoi.lab2.flight.responses;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class FlightPage {
+public class FlightPage implements Serializable {
 
     private List<FlightResponse> items;
 
@@ -12,6 +13,9 @@ public class FlightPage {
     private int pageSize;
 
     private int totalElements;
+
+    public FlightPage() {
+    }
 
     public FlightPage(List<FlightResponse> items, int page, int pageSize, int totalElements) {
         this.items = items;
