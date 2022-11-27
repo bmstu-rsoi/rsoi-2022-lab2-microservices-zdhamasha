@@ -15,10 +15,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: docker/setup-buildx-action@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'adopt'
 
-      # TODO build and run unit tests
-
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v4.4
+        with:
+          maven-version: 3.6.3
+      - name: gateway build
+        run: mvn -f flight-booking-system/gateway/pom.xml --batch-mode --update-snapshots clean package
+      - name: flight build
+        run: mvn -f flight-booking-system/flight/pom.xml --batch-mode --update-snapshots clean package
+      - name: ticket build
+        run: mvn -f flight-booking-system/ticket/pom.xml --batch-mode --update-snapshots clean package
+      - name: bonus build
+        run: mvn -f flight-booking-system/bonus/pom.xml --batch-mode --update-snapshots clean package
+        
       - name: Build images
         timeout-minutes: 10
         run: docker compose build
@@ -29,14 +44,13 @@ jobs:
           docker compose up -d
           ./scripts/wait-script.sh
         env:
-          - WAIT_PORTS=8080,8070,8060,8050
+          WAIT_PORTS: 8080,8070,8060,8050
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
         with:
-          # TODO insert your variant
-          collection: <variant>/postman/collection.json
-          environment: <variant>/postman/environment.json
+          collection: v1/postman/collection.json
+          environment: v1/postman/environment.json
           delayRequest: 100
           reporters: '[ "cli" ]'
 

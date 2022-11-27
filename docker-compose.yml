@@ -2,7 +2,7 @@ version: "3"
 services:
   postgres:
     image: library/postgres:13
-    container_name: postgres
+    container_name: postgres-lab
     restart: on-failure
     environment:
       POSTGRES_USER: postgres
@@ -14,7 +14,29 @@ services:
     ports:
       - "5432:5432"
 
-# TODO добавить сервисы
+  gateway:
+    image: gateway
+    build: ./flight-booking-system/gateway/
+    ports:
+      - "8080:8080"
+      
+  cars:
+    image: flight
+    build: ./flight-booking-system/flight/
+    ports:
+      - "8060:8060"
+      
+  rental:
+    image: ticket
+    build: ./flight-booking-system/ticket/
+    ports:
+      - "8070:8070"
+      
+  payment:
+    image: bonus
+    build: ./flight-booking-system/bonus/
+    ports:
+      - "8050:8050"
 
 volumes:
   db-data:
