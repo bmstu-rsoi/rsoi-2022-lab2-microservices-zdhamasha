@@ -11,6 +11,6 @@ spring:
     driver-class-name: org.postgresql.Driver
 services:
   urls:
-    flight-service-url: http://localhost:8060/api/v1/flights
-    privilege-service-url: http://localhost:8050/api/v1/privilege
-    tickets-service-url: http://localhost:8070/api/v1/tickets
+    flight-service-url: http://flight:8060/api/v1/flights
+    privilege-service-url: http://bonus:8050/api/v1/privilege
+    tickets-service-url: http://ticket:8070/api/v1/tickets
