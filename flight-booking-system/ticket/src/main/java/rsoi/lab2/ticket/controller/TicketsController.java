@@ -1,45 +1,52 @@
 package rsoi.lab2.ticket.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import rsoi.lab2.ticket.requests.PurchaseTicketRequest;
+import rsoi.lab2.ticket.responses.FindTicketResponse;
+import rsoi.lab2.ticket.responses.FindTicketsResponse;
+import rsoi.lab2.ticket.responses.PurchaseTicketResponse;
+import rsoi.lab2.ticket.usecases.DeleteTicketByUidUseCase;
+import rsoi.lab2.ticket.usecases.FindAllUserTicketsUseCase;
+import rsoi.lab2.ticket.usecases.FindTicketByUidUseCase;
+import rsoi.lab2.ticket.usecases.PurchaseTicketUseCase;
 
 @RestController
 @RequestMapping("/api/v1/tickets")
 public class TicketsController {
 
-//    private final TicketRepository ticketRepository;
-//
-//    @Autowired
-//    public TicketsController(TicketRepository ticketRepository)
-//    {
-//        this.ticketRepository = ticketRepository;
-//    }
-//
-//
-//    @GetMapping("")
-//    public List<Ticket> getAllTickets() {
-//        return ticketRepository.findAll();
-//    }
-//
-//
-//    @GetMapping("/me")
-//    public ResponseEntity<?> getTickets(@RequestHeader(value = "X-User-Name") String username) {
-//        return new ResponseEntity<>(ticketRepository.getUserTickets(username), HttpStatus.OK);
-//    }
+    private final PurchaseTicketUseCase purchaseTicketUseCase;
+    private final FindTicketByUidUseCase findTicketByUidUseCase;
+    private final FindAllUserTicketsUseCase findAllUserTicketsUseCase;
+    private final DeleteTicketByUidUseCase deleteTicketByUidUseCase;
 
-    @PostMapping()
-    public boolean createTicket(@RequestBody PurchaseTicketRequest request) {
-        return false;
+    public TicketsController(PurchaseTicketUseCase purchaseTicketUseCase,
+                             FindTicketByUidUseCase findTicketByUidUseCase,
+                             FindAllUserTicketsUseCase findAllUserTicketsUseCase,
+                             DeleteTicketByUidUseCase deleteTicketByUidUseCase) {
+        this.purchaseTicketUseCase = purchaseTicketUseCase;
+        this.findTicketByUidUseCase = findTicketByUidUseCase;
+        this.findAllUserTicketsUseCase = findAllUserTicketsUseCase;
+        this.deleteTicketByUidUseCase = deleteTicketByUidUseCase;
     }
 
-//    @PostMapping()
-//    public ResponseEntity<PurchaseFlightResponse> findAllFlights(@RequestParam int page,
-//                                                                 @RequestParam int size) {
-//        List<FlightResponse> flights = findAllFlights.execute(PageRequest.of(page, size));
-//        return ResponseEntity.ok(new FlightPage(flights, page, size, flights.size()));
-//    }
+    @PostMapping()
+    public ResponseEntity<PurchaseTicketResponse> createTicket(@RequestBody PurchaseTicketRequest request) {
+        return ResponseEntity.ok(purchaseTicketUseCase.execute(request));
+    }
 
+    @GetMapping("/{ticketUid}")
+    public ResponseEntity<FindTicketResponse> findTicketByUid(@PathVariable("ticketUid") String ticketUid) {
+        return ResponseEntity.ok(findTicketByUidUseCase.execute(ticketUid));
+    }
+
+    @GetMapping()
+    public ResponseEntity<FindTicketsResponse> findAllUserTickets(@RequestHeader("X-User-Name") String username) {
+        return ResponseEntity.ok(findAllUserTicketsUseCase.execute(username));
+    }
+
+    @DeleteMapping("{ticketUid}")
+    public void deleteTicket(@PathVariable("ticketUid") String ticketUid) {
+        deleteTicketByUidUseCase.execute(ticketUid);
+    }
 }

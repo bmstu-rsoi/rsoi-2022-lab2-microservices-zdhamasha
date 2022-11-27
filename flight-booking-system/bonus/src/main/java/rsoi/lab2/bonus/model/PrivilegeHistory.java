@@ -1,7 +1,5 @@
 package rsoi.lab2.bonus.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -18,9 +16,7 @@ public class PrivilegeHistory {
     @Column(name = "PRIVILEGE_ID")
     private Long privilegeId;
 
-    @Column(name = "TICKET_UID", unique = true, nullable = false)
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Column(name = "TICKET_UID", nullable = false)
     private UUID ticket_uid;
 
     @Column(name = "DATETIME", nullable = false)

@@ -1,15 +1,14 @@
-package rsoi.lab2.bonus.responses;
+package rsoi.lab2.gateway.responses;
 
-import java.util.List;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class PrivilegeResponse {
+public class PrivilegeResponse implements Serializable {
 
     private Long id;
     private String username;
     private String status;
     private Integer balance;
-    private List<PrivilegeHistoryResponse> history;
 
     public Long getId() {
         return id;
@@ -43,35 +42,25 @@ public class PrivilegeResponse {
         this.balance = balance;
     }
 
-    public List<PrivilegeHistoryResponse> getHistory() {
-        return history;
-    }
-
-    public void setHistory(List<PrivilegeHistoryResponse> history) {
-        this.history = history;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PrivilegeResponse that = (PrivilegeResponse) o;
-        return Objects.equals(id, that.id) && Objects.equals(username, that.username) && Objects.equals(status, that.status) && Objects.equals(balance, that.balance) && Objects.equals(history, that.history);
+        return Objects.equals(username, that.username) && status == that.status && Objects.equals(balance, that.balance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, status, balance, history);
+        return Objects.hash(username, status, balance);
     }
 
     @Override
     public String toString() {
         return "PrivilegeResponse{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", status='" + status + '\'' +
+                "username='" + username + '\'' +
+                ", status=" + status +
                 ", balance=" + balance +
-                ", history=" + history +
                 '}';
     }
 }

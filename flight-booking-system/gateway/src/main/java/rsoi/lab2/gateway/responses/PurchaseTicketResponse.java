@@ -1,6 +1,4 @@
-package rsoi.lab2.ticket.responses;
-
-import rsoi.lab2.ticket.model.Status;
+package rsoi.lab2.gateway.responses;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,7 +10,7 @@ public class PurchaseTicketResponse implements Serializable {
     private UUID ticketUid;
     private String username;
     private Integer price;
-    private Status status;
+    private String status;
 
     public String getFlightNumber() {
         return flightNumber;
@@ -30,22 +28,6 @@ public class PurchaseTicketResponse implements Serializable {
         this.ticketUid = ticketUid;
     }
 
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -54,17 +36,33 @@ public class PurchaseTicketResponse implements Serializable {
         this.username = username;
     }
 
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PurchaseTicketResponse that = (PurchaseTicketResponse) o;
-        return Objects.equals(flightNumber, that.flightNumber) && Objects.equals(ticketUid, that.ticketUid) && Objects.equals(price, that.price) && status == that.status && Objects.equals(username, that.username);
+        return Objects.equals(flightNumber, that.flightNumber) && Objects.equals(ticketUid, that.ticketUid) && Objects.equals(username, that.username) && Objects.equals(price, that.price) && Objects.equals(status, that.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(flightNumber, ticketUid, price, status, username);
+        return Objects.hash(flightNumber, ticketUid, username, price, status);
     }
 
     @Override
@@ -72,10 +70,9 @@ public class PurchaseTicketResponse implements Serializable {
         return "PurchaseTicketResponse{" +
                 "flightNumber='" + flightNumber + '\'' +
                 ", ticketUid=" + ticketUid +
-                ", price=" + price +
-                ", status=" + status +
                 ", username='" + username + '\'' +
+                ", price=" + price +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
-

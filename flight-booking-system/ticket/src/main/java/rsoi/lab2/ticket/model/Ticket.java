@@ -2,34 +2,39 @@ package rsoi.lab2.ticket.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
+import java.util.UUID;
 
 @Entity
-@Table(name = "tickets")
-@IdClass(Ticket.class)
-public class Ticket implements Serializable {
+@Table(name = "TICKET")
+public class Ticket {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "flightNumber", nullable = false, length = 20)
+    @Column(name = "FLIGHT_NUMBER", nullable = false, length = 20)
     private String flightNumber;
 
-    @Id
-    @Column(name = "ticketUid")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ticketUid;
+    @Column(name = "TICKET_UID")
+    private UUID ticketUid;
 
-    @Column(name = "username", nullable = false, length = 80)
+    @Column(name = "USERNAME", nullable = false, length = 80)
     private String username;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "PRICE", nullable = false)
     private int price;
 
-    @Column(name = "status", nullable = false, length = 20)
+    @Column(name = "STATUS", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    public Ticket() {
+    public UUID getTicketUid() {
+        return ticketUid;
+    }
+
+    public void setTicketUid(UUID ticketUid) {
+        this.ticketUid = ticketUid;
     }
 
     public Long getId() {
@@ -38,14 +43,6 @@ public class Ticket implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getticketUid() {
-        return ticketUid;
-    }
-
-    public void setticketUid(Long ticketUid) {
-        this.ticketUid = ticketUid;
     }
 
     public String getUsername() {
@@ -80,7 +77,18 @@ public class Ticket implements Serializable {
         this.flightNumber = flightNumber;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return price == ticket.price && Objects.equals(id, ticket.id) && Objects.equals(flightNumber, ticket.flightNumber) && Objects.equals(ticketUid, ticket.ticketUid) && Objects.equals(username, ticket.username) && status == ticket.status;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, flightNumber, ticketUid, username, price, status);
+    }
 
 
     @Override
@@ -93,14 +101,5 @@ public class Ticket implements Serializable {
                 ", price=" + price +
                 ", status='" + status + '\'' +
                 '}';
-    }
-
-    public Ticket(Long id, String flightNumber, Long ticketUid, String username, int price, Status status) {
-        this.id = id;
-        this.flightNumber = flightNumber;
-        this.ticketUid = ticketUid;
-        this.username = username;
-        this.price = price;
-        this.status = status;
     }
 }

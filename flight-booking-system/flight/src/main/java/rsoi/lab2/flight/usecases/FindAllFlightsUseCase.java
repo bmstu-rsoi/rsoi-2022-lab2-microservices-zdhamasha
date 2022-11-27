@@ -1,36 +1,43 @@
 package rsoi.lab2.flight.usecases;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import rsoi.lab2.flight.model.Flight;
 import rsoi.lab2.flight.repository.AirportRepository;
 import rsoi.lab2.flight.repository.FlightRepository;
 import rsoi.lab2.flight.responses.FlightResponse;
+import rsoi.lab2.flight.responses.FlightsResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class FindAllFlights {
+public class FindAllFlightsUseCase {
 
     private final AirportRepository airportRepository;
     private final FlightRepository flightRepository;
 
 
-    public FindAllFlights(AirportRepository airportRepository, FlightRepository flightRepository) {
+    public FindAllFlightsUseCase(AirportRepository airportRepository, FlightRepository flightRepository) {
         this.airportRepository = airportRepository;
         this.flightRepository = flightRepository;
     }
 
-    public List<FlightResponse> execute(PageRequest request) {
-        return flightRepository.findAll(PageRequest.of(request.getPageNumber() - 1, request.getPageSize()))
+    public FlightsResponse execute() {
+        List<FlightResponse> flights = flightRepository.findAll()
                 .stream()
-                .map(this::mapToFlight)
+                .map(this::mapToFlightsResponse)
                 .collect(Collectors.toList());
+
+        FlightsResponse response = new FlightsResponse();
+        response.setFlightResponseList(new ArrayList<>(flights));
+
+        return response;
     }
 
-    private FlightResponse mapToFlight(Flight flight) {
+    private FlightResponse mapToFlightsResponse(Flight flight) {
         FlightResponse flightResponse = new FlightResponse();
+
 
         flightResponse.setFlightNumber(flight.getFlightNumber());
         flightResponse.setDate(flight.getDateTime());

@@ -7,10 +7,7 @@ public class PurchaseTicketRequest implements Serializable {
 
     private String flightNumber;
     private Integer price;
-    private Boolean paidFromBalance;
-
-    public PurchaseTicketRequest() {
-    }
+    private String username;
 
     public String getFlightNumber() {
         return flightNumber;
@@ -28,12 +25,12 @@ public class PurchaseTicketRequest implements Serializable {
         this.price = price;
     }
 
-    public Boolean getPaidFromBalance() {
-        return paidFromBalance;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPaidFromBalance(Boolean paidFromBalance) {
-        this.paidFromBalance = paidFromBalance;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -41,12 +38,12 @@ public class PurchaseTicketRequest implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PurchaseTicketRequest that = (PurchaseTicketRequest) o;
-        return Objects.equals(flightNumber, that.flightNumber) && Objects.equals(price, that.price) && Objects.equals(paidFromBalance, that.paidFromBalance);
+        return Objects.equals(flightNumber, that.flightNumber) && Objects.equals(price, that.price) && Objects.equals(username, that.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(flightNumber, price, paidFromBalance);
+        return Objects.hash(flightNumber, price, username);
     }
 
     @Override
@@ -54,7 +51,7 @@ public class PurchaseTicketRequest implements Serializable {
         return "PurchaseTicketRequest{" +
                 "flightNumber='" + flightNumber + '\'' +
                 ", price=" + price +
-                ", paidFromBalance=" + paidFromBalance +
+                ", username='" + username + '\'' +
                 '}';
     }
 }
