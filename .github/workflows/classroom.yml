@@ -26,13 +26,13 @@ jobs:
         with:
           maven-version: 3.6.3
       - name: gateway build
-        run: mvn -f flight-booking-system/gateway/pom.xml --batch-mode --update-snapshots clean package
+        run: mvn -f /gateway/pom.xml --batch-mode --update-snapshots clean package -DskipTests 
       - name: flight build
-        run: mvn -f flight-booking-system/flight/pom.xml --batch-mode --update-snapshots clean package
+        run: mvn -f /flight/pom.xml --batch-mode --update-snapshots clean package -DskipTests 
       - name: ticket build
-        run: mvn -f flight-booking-system/ticket/pom.xml --batch-mode --update-snapshots clean package
+        run: mvn -f /ticket/pom.xml --batch-mode --update-snapshots clean package -DskipTests 
       - name: bonus build
-        run: mvn -f flight-booking-system/bonus/pom.xml --batch-mode --update-snapshots clean package
+        run: mvn -f /bonus/pom.xml --batch-mode --update-snapshots clean package -DskipTests 
         
       - name: Build images
         timeout-minutes: 10

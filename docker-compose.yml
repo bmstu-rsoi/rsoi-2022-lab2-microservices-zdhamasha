@@ -16,25 +16,25 @@ services:
 
   gateway:
     image: gateway
-    build: ./flight-booking-system/gateway/
+    build: ./gateway/
     ports:
       - "8080:8080"
       
   cars:
     image: flight
-    build: ./flight-booking-system/flight/
+    build: ./flight/
     ports:
       - "8060:8060"
       
   rental:
     image: ticket
-    build: ./flight-booking-system/ticket/
+    build: ./ticket/
     ports:
       - "8070:8070"
       
   payment:
     image: bonus
-    build: ./flight-booking-system/bonus/
+    build: ./bonus/
     ports:
       - "8050:8050"
 
